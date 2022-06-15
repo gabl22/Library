@@ -20,13 +20,13 @@ public class Check {
                 throw new NullPointerException(TextFormat.format(reason));
     }
 
-    @Contract("false, _ -> fail")
-    public static void assertTrue(boolean b, @NotNull String reason) {
-        assertFalse(!b, reason);
+    @Contract("_, false -> fail")
+    public static void assertTrue(@NotNull String reason, boolean b) {
+        assertFalse(reason, !b);
     }
 
-    @Contract("true, _ -> fail")
-    public static void assertFalse(boolean b, @NotNull String reason) {
+    @Contract("_, true -> fail")
+    public static void assertFalse(@NotNull String reason, boolean b) {
         if(b)
             throw new IllegalArgumentException(TextFormat.format(reason));
     }
