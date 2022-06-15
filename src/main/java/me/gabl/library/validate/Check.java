@@ -15,6 +15,7 @@ public class Check {
 
     @Contract("_, null -> fail")
     public static void notNull(@NotNull String reason, @Nullable Object... objects) {
+        assertTrue("Amount of objects to test might not be zero.", objects.length >= 1);
         for(Object object : objects)
             if(Objects.isNull(object))
                 throw new NullPointerException(TextFormat.format(reason));
