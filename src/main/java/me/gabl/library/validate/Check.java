@@ -1,4 +1,4 @@
-package me.gabl.library.util.validate;
+package me.gabl.library.validate;
 
 import me.gabl.library.util.text.TextFormat;
 import org.jetbrains.annotations.Contract;
