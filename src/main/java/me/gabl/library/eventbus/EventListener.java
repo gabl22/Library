@@ -6,5 +6,5 @@ public interface EventListener<E> {
 
     void onEvent(E event);
 
-    Class<E> eventClass();
+    @NotNull Class<E> eventClass();
 }
