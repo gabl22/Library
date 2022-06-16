@@ -40,10 +40,13 @@ public class EventBusImpl<I, P extends Comparable<P>> {
     }
 
     @SuppressWarnings("unchecked")
-    public void fire(@NotNull Object event) {
+    public boolean fire(@NotNull Object event) {
         for(SimplePrioritisingMap.Node<I, EventListener, P> entry : listeners.entries()) {
             if(entry.value().eventClass().isAssignableFrom(event.getClass()))
                 entry.value().onEvent(event);
+            if(event instanceof CancellableEvent cEvent && cEvent.cancelled())
+                return false;
         }
+        return true;
     }
 }
