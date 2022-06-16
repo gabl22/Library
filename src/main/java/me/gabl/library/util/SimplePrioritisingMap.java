@@ -131,7 +131,7 @@ public class SimplePrioritisingMap<K, V, P extends Comparable<P>> implements Pri
             return new Node<>(key, value, priorityLevel);
         }
 
-        K key() {
+        public K key() {
             return key;
         }
 
