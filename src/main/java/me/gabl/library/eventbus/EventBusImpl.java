@@ -54,9 +54,12 @@ public class EventBusImpl<I, P extends Comparable<P>> implements EventBus<I, P> 
     @SuppressWarnings("unchecked")
     public boolean fire(@Nullable Object event) {
         for(PrioritisingMap.Node<I, EventListener, P> entry : listeners.entries()) {
-            if((event == null && entry.value().eventClass() != Object.class))
-                continue;
-            if(entry.value().eventClass().isAssignableFrom(event.getClass()))
+            if(event == null)
+                if(entry.value().eventClass().isAssignableFrom(Object.class))
+                    entry.value().onEvent(event);
+                else
+                    continue;
+            else if(entry.value().eventClass().isAssignableFrom(event.getClass()))
                 entry.value().onEvent(event);
             if(event instanceof CancellableEvent cEvent && cEvent.cancelled())
                 return false;
