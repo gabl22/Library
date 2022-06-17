@@ -33,11 +33,24 @@ public interface PrioritisingMap<K, V, P extends Comparable<P>> {
 
     void clear();
 
-    @NotNull List<SimplePrioritisingMap.Node<K, V, P>> entries();
+    @NotNull List<PrioritisingMap.Node<K, V, P>> entries();
 
     void forEach(Consumer<? super SimplePrioritisingMap.Node<K, V, P>> action);
 
-    @Nullable void putIfAbsent(K key, V value, P priorityLevel);
+    void putIfAbsent(K key, V value, P priorityLevel);
 
     void sort();
+
+    interface Node<K, V, P extends Comparable<P>> extends Comparable<Node<K, V, P>> {
+
+        K key();
+
+        V value();
+
+        SimplePrioritisingMap.Node<K, V, P> value(V value);
+
+        P priorityLevel();
+
+        SimplePrioritisingMap.Node<K, V, P> priorityLevel(P priorityLevel);
+    }
 }

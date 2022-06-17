@@ -93,7 +93,7 @@ public class SimplePrioritisingMap<K, V, P extends Comparable<P>> implements Pri
 
     @NotNull
     @Override
-    public List<Node<K, V, P>> entries() {
+    public List<PrioritisingMap.Node<K, V, P>> entries() {
         return Collections.unmodifiableList(nodes);
     }
 
@@ -115,7 +115,7 @@ public class SimplePrioritisingMap<K, V, P extends Comparable<P>> implements Pri
         this.nodes.sort(Node::compareTo);
     }
 
-    public static class Node<K, V, P extends Comparable<P>> implements Comparable<Node<K, V, P>> {
+    public static class Node<K, V, P extends Comparable<P>> implements PrioritisingMap.Node<K, V, P> {
 
         private final K key;
         private V value;
@@ -131,31 +131,36 @@ public class SimplePrioritisingMap<K, V, P extends Comparable<P>> implements Pri
             return new Node<>(key, value, priorityLevel);
         }
 
+        @Override
         public K key() {
             return key;
         }
 
+        @Override
         public V value() {
             return value;
         }
 
-        Node<K, V, P> value(V value) {
+        @Override
+        public Node<K, V, P> value(V value) {
             this.value = value;
             return this;
         }
 
+        @Override
         public P priorityLevel() {
             return priorityLevel;
         }
 
-        Node<K, V, P> priorityLevel(P priorityLevel) {
+        @Override
+        public Node<K, V, P> priorityLevel(P priorityLevel) {
             this.priorityLevel = priorityLevel;
             return this;
         }
 
         @Override
-        public int compareTo(@NotNull SimplePrioritisingMap.Node<K, V, P> that) {
-            return this.priorityLevel.compareTo(that.priorityLevel);
+        public int compareTo(@NotNull PrioritisingMap.Node<K, V, P> that) {
+            return this.priorityLevel.compareTo(that.priorityLevel());
         }
     }
 }
