@@ -1,7 +1,9 @@
 package me.gabl.library.eventbus;
 
+import me.gabl.library.util.PrioritisingMap;
 import me.gabl.library.util.SimplePrioritisingMap;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
@@ -11,11 +13,11 @@ public interface EventBus<I, P extends Comparable<P>> {
 
     void unregister(I identifier);
 
-    void unregisterIf(@NotNull Predicate<SimplePrioritisingMap.Node<I, EventListener, P>> predicate);
+    void unregisterIf(@NotNull Predicate<PrioritisingMap.Node<I, EventListener, P>> predicate);
 
     void unregisterAll();
 
     boolean registered(I identifier);
 
-    boolean fire(Object event);
+    boolean fire(@Nullable Object event);
 }

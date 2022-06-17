@@ -3,7 +3,9 @@ package me.gabl.library.eventbus;
 import me.gabl.library.util.PrioritisingMap;
 import me.gabl.library.util.SimplePrioritisingMap;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import static me.gabl.library.validate.Check.*;
@@ -31,8 +33,8 @@ public class EventBusImpl<I, P extends Comparable<P>> implements EventBus<I, P> 
     }
 
     @Override
-    public void unregisterIf(@NotNull Predicate<SimplePrioritisingMap.Node<I, EventListener, P>> predicate) {
-        for(SimplePrioritisingMap.Node<I, EventListener, P> entry : listeners.entries())
+    public void unregisterIf(@NotNull Predicate<PrioritisingMap.Node<I, EventListener, P>> predicate) {
+        for(PrioritisingMap.Node<I, EventListener, P> entry : List.copyOf(listeners.entries()))
             if(predicate.test(entry))
                 this.unregister(entry.key());
     }
@@ -50,8 +52,10 @@ public class EventBusImpl<I, P extends Comparable<P>> implements EventBus<I, P> 
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean fire(Object event) {
-        for(SimplePrioritisingMap.Node<I, EventListener, P> entry : listeners.entries()) {
+    public boolean fire(@Nullable Object event) {
+        for(PrioritisingMap.Node<I, EventListener, P> entry : listeners.entries()) {
+            if((event == null && entry.value().eventClass() != Object.class))
+                continue;
             if(entry.value().eventClass().isAssignableFrom(event.getClass()))
                 entry.value().onEvent(event);
             if(event instanceof CancellableEvent cEvent && cEvent.cancelled())
