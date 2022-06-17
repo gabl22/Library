@@ -17,5 +17,5 @@ public interface EventBus<I, P extends Comparable<P>> {
 
     boolean registered(I identifier);
 
-    boolean fire(@NotNull Object event);
+    boolean fire(Object event);
 }

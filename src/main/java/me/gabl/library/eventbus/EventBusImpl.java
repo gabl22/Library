@@ -50,7 +50,7 @@ public class EventBusImpl<I, P extends Comparable<P>> implements EventBus<I, P> 
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean fire(@NotNull Object event) {
+    public boolean fire(Object event) {
         for(SimplePrioritisingMap.Node<I, EventListener, P> entry : listeners.entries()) {
             if(entry.value().eventClass().isAssignableFrom(event.getClass()))
                 entry.value().onEvent(event);
