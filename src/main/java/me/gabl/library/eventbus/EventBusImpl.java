@@ -38,6 +38,11 @@ public class EventBusImpl<I, P extends Comparable<P>> implements EventBus<I, P> 
     }
 
     @Override
+    public void unregisterAll() {
+        this.listeners.clear();
+    }
+
+    @Override
     public boolean registered(@NotNull I identifier) {
         notNull("Identifier must not be null.", identifier);
         return this.listeners.containsKey(identifier);

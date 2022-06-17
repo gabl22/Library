@@ -13,6 +13,8 @@ public interface EventBus<I, P extends Comparable<P>> {
 
     void unregisterIf(@NotNull Predicate<SimplePrioritisingMap.Node<I, EventListener, P>> predicate);
 
+    void unregisterAll();
+
     boolean registered(I identifier);
 
     boolean fire(@NotNull Object event);
