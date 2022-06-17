@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 @SuppressWarnings("rawtypes")
 public interface EventBus<I, P extends Comparable<P>> {
-    void register(I identifier, @NotNull EventListener listener, P priorityLevel);
+    void register(I identifier, EventListener listener, P priorityLevel);
 
     void unregister(I identifier);
 

@@ -1,6 +1,7 @@
 package me.gabl.library.eventbus;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -16,7 +17,7 @@ final class EventListenerImpl<E> implements EventListener<E> {
 
 
     @Override
-    public void onEvent(E event) {
+    public void onEvent(@Nullable E event) {
         if(handler == null)
             return;
         handler.accept(event);
